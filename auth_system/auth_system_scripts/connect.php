@@ -20,9 +20,9 @@ $crypt = 'hash_md5';
 
 // Конфигурация подключения к базе данных
 $db_host		= 'localhost'; // Ip-адрес базы данных
-$db_port		=  '3306'; // Порт базы данных
-$db_user		= 'root'; // Пользователь базы данных
-$db_pass		= 'root'; // Пароль базы данных
+$db_port		= '5432'; // Порт базы данных
+$db_user		= 'postgres'; // Пользователь базы данных
+$db_pass		= 'postgres'; // Пароль базы данных
 
 // Конфигурация базы данных для плагинов AuthMe, xAuth, CAuth и сайтав/cms/форумов Joomla, IPB, XenForo, WordPress, vBulletin, DLE, Drupal
 /*
@@ -32,7 +32,7 @@ xAuth = отсутствует (указывается вручную)
 CAuth = 'cauth'
 Joomla,IPB,XenForo,WordPress,vBulletin,DLE, Drupal - отсутствует (указывается вручную)
 */
-$db_database	= '_xf';
+$db_database	= 'minecraft';
 
 /*
 $db_table - таблица базы данных, значение по умолчанию:
@@ -47,7 +47,7 @@ WordPress = 'префикс_users' - пример 'wp_users', где "wp_" - п�
 DLE = 'префикс_users' - пример 'dle_users', где "dle_" - префикс. Примечание префикс может отсутствовать - пример 'users'
 Drupal = 'префикс_users' - пример 'drupal_users', где "drupal_" - префикс. Примечание префикс может отсутствовать - пример 'users'
 */
-$db_table       = 'xf_user';
+$db_table       = 'users';
 
 /*
 $db_columnId - уникальный идентификатор, значение по умолчанию
@@ -62,7 +62,7 @@ WordPress = 'id'
 DLE = 'user_id'
 Drupal = 'uid'
 */
-$db_columnId  = 'user_id';
+$db_columnId  = 'id';
 
 /*
 $db_columnUser - колонка логина, значение по умолчанию:
@@ -92,7 +92,7 @@ vBulletin = 'password'
 DLE = 'password'
 Drupal = 'pass'
 */
-$db_columnPass  = 'data';
+$db_columnPass  = 'password';
 
 // ДОПОЛНИТЕЛЬНЫЕ НАСТРОЙКИ ТОЛЬКО ДЛЯ IPB и XenForo
 
@@ -127,8 +127,7 @@ $db_Propertycolumn = 'property';
 $db_Valuecolumn = 'value';
 
 
-$link = @mysql_connect($db_host.':'.$db_port,$db_user,$db_pass) or die('Невозможно установить соединение с базой данных!');
-
-mysql_select_db($db_database,$link);
-mysql_query("SET names UTF8");
+$constr = "host='".$db_host."' port='".$db_port."' dbname='".$db_database."' user='".$db_user."' password='".$db_pass."' options='--client_encoding=UTF8'";   
+$link = pg_connect($constr)
+  or die ("Could not connect to PostgreSQL");
 ?>

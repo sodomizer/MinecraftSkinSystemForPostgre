@@ -12,14 +12,16 @@ function getGameInfo($type){
     include ("connect.php");
     switch($type){
 	case 'build':
-		$query = mysql_query("SELECT * FROM $db_GameDatatable WHERE $db_Propertycolumn = 'latest-game-build'") or die ("Запрос к базе завершился ошибкой.");    
-	    	$resource = mysql_fetch_array($query);
+		$query = pg_query($link, "SELECT * FROM \"$db_GameDatatable\" WHERE \"$db_Propertycolumn\" = 'latest-game-build'")
+		           or die ("Запрос к базе завершился ошибкой.");    
+	    	$resource = pg_fetch_array($query);
 	    	return $resource[$db_Valuecolumn];
 	break;
 
 	case 'launcher':
-		$query = mysql_query("SELECT * FROM $db_GameDatatable WHERE $db_Propertycolumn = 'launcher-version'") or die ("Запрос к базе завершился ошибкой."); 
-	    	$resource = mysql_fetch_array($query);
+		$query = pg_query($link, "SELECT * FROM \"$db_GameDatatable\" WHERE \"$db_Propertycolumn\" = 'launcher-version'")
+		           or die ("Запрос к базе завершился ошибкой."); 
+	    	$resource = pg_fetch_array($query);
 	    	return $resource[$db_Valuecolumn];
 	break;
 
