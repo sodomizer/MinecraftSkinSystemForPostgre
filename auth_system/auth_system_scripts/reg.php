@@ -34,9 +34,9 @@ include "connect.php";
         
 	else
             {
-                $login_proverka = mysql_query("SELECT $db_columnUser FROM $db_table WHERE $db_columnUser='$login'") or ("Запрос к базе завершился ощибкой.");
+                $login_proverka = pg_query($link, "SELECT \"$db_columnUser\" FROM \"$db_table\" WHERE \"$db_columnUser\"='$login'") or ("Запрос к базе завершился ошибкой.");
 
-	        if (mysql_num_rows($login_proverka))
+	        if (pg_num_rows($login_proverka))
             {
                 echo "Акаунт <b>".$login."</b> уже существует.";
             }
@@ -62,8 +62,8 @@ include "connect.php";
         else
             {
                 $cp = md5($pass);
-		mysql_query("INSERT INTO $db_table ($db_columnUser,$db_columnPass) VALUES('$login','$cp')") or die ("Запрос к базе завершился ощибкой.");
-		echo 'Аккаунт <b>'.$login.'</b> успешно зарегестрирован.';
+				pg_query($link, "INSERT INTO \"$db_table\" (\"$db_columnUser\",\"$db_columnPass\") VALUES('$login','$cp')") or die ("Запрос к базе завершился ошибкой.");
+				echo 'Аккаунт <b>'.$login.'</b> успешно зарегестрирован.';
 		
             }    
         }     

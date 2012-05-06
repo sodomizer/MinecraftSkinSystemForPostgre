@@ -126,6 +126,24 @@ $db_GameDatatable = 'data';
 $db_Propertycolumn = 'property';
 $db_Valuecolumn = 'value';
 
+//Проверка хеша
+//Включение
+$hash_enable = true;
+//Проверять md5 при логине
+$hash_at_login = true;
+//Путь к minecraft.jar (относительно этого файла)
+$minecraft = '../client/minecraft.jar';
+//Алгоритм ('md5', 'sha1', 'sha512') (только при $hash_at_login=false)
+$hashtype = 'sha512';
+
+//Проверка времени последней успешной проверки хеша
+//Включить?
+$hash_enable_timeout = true;
+//Таймаут(в секундах)
+$hash_timeout = 60;
+//Колонка
+$db_columnHashTimeout = 'md5time';
+
 
 $constr = "host='".$db_host."' port='".$db_port."' dbname='".$db_database."' user='".$db_user."' password='".$db_pass."' options='--client_encoding=UTF8'";   
 $link = pg_connect($constr)
