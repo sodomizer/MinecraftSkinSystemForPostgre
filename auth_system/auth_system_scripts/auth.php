@@ -5,6 +5,7 @@ include ("connect.php");
 $login = pg_escape_string($_POST['user']);
 $postPass=pg_escape_string($_POST['password']);
 $ver=$_POST['version'];
+$hash=$_POST['md5'];
 
 		if(getGameInfo('launcher') == $ver){
 
@@ -28,12 +29,27 @@ $ver=$_POST['version'];
 					$salt = substr($row[$db_columnPass],105,64);
 				}
 
-    				if ($realPass) 
-					{
-						$checkPass = $crypt();
+    			if ($realPass) 
+				{
+					$checkPass = $crypt();
 						
-						if(strcmp($realPass,$checkPass) == 0)
-						{
+					if(strcmp($realPass,$checkPass) == 0)
+					{
+						if ($hash_enable && $hash_at_login){
+							$check=false;
+						    if (strtolower($_GET[$hashtype])==strtolower(hash_file($hashtype, $minecraft))){
+								if ($hash_enable_timeout){
+								    $ticket = pg_escape_string($link, $_GET['ticket']);
+								    $result = pg_query($link, "Update \"$db_table\" SET \"$db_columnHashTimeout\"=now() Where md5(\"$db_columnUser\")='$ticket'")
+									    or die ("Запрос к базе завершился ошибкой.");
+										
+								}
+								$check=true;
+							}	
+						}
+						else
+							$check=true;
+						if ($check){
 							$sessid = generateSessionId();
 							$gamebuild=getGameInfo('build');
 							pg_query("UPDATE \"$db_table\" SET \"$db_columnSesId\"='$sessid' WHERE \"$db_columnUser\" = '$login'") or die ("Запрос к базе завершился ошибкой.");
@@ -41,10 +57,13 @@ $ver=$_POST['version'];
 							echo $gamebuild.':'.$dlticket.':'.$login.':'.$sessid.':';
 						}
 						else
-						{
-							echo "Bad login";
-						}
+							echo "Corrupted client";
 					}
+					else
+					{
+						echo "Bad login";
+					}
+				}
 				else {
 					echo "Bad login";
 					}

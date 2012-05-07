@@ -130,7 +130,7 @@ $db_Valuecolumn = 'value';
 //Включение
 $hash_enable = true;
 //Проверять md5 при логине
-$hash_at_login = true;
+$hash_at_login = false;
 //Путь к minecraft.jar (относительно этого файла)
 $minecraft = '../client/minecraft.jar';
 //Алгоритм ('md5', 'sha1', 'sha512') (только при $hash_at_login=false)

@@ -9,8 +9,7 @@ News=http://example.com/news.php
 ZipType=Res
 SavesFolder=%APPDATA%\.examplecraft\
 Password=true
-CheckType=
-<?php
+CheckType=<?php
   if(!$hash_enable)
     echo "None";
   else
@@ -19,6 +18,7 @@ CheckType=
 	else
 	  echo strtoupper($hashtype);
 ?>
+
 Check=http://example.com/checkclient.php?<?php echo strtolower($hashtype);?>=
 Logo=http://example.com/logo.png
 Image=http://example.com/randomimage.php
