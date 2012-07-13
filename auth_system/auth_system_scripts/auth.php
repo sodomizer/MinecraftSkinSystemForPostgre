@@ -5,7 +5,7 @@ include ("connect.php");
 $login = pg_escape_string($_POST['user']);
 $postPass=pg_escape_string($_POST['password']);
 $ver=pg_escape_string($_POST['version']);
-$hash=pg_escape_string($_POST['md5']);
+$hash=pg_escape_string($_POST[$hash_al_param_name!='' ? $hash_al_param_name : 'md5']);
 
 		if(getGameInfo('launcher') == $ver){
 
