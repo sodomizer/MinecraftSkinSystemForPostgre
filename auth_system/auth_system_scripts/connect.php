@@ -143,6 +143,10 @@ $hash_enable_timeout = true;
 $hash_timeout = 60;
 //Колонка
 $db_columnHashTimeout = 'md5time';
+//Название колонки хеша в запросе при входе на сервер
+$hash_param_name = 'hash';
+//Название колонки хеша в запросе при авторизации
+$hash_al_param_name = 'md5';
 
 
 $constr = "host='".$db_host."' port='".$db_port."' dbname='".$db_database."' user='".$db_user."' password='".$db_pass."' options='--client_encoding=UTF8'";   
