@@ -4,8 +4,8 @@ require_once 'functions.php';
 include ("connect.php");
 $login = pg_escape_string($_POST['user']);
 $postPass=pg_escape_string($_POST['password']);
-$ver=$_POST['version'];
-$hash=$_POST['md5'];
+$ver=pg_escape_string($_POST['version']);
+$hash=pg_escape_string($_POST['md5']);
 
 		if(getGameInfo('launcher') == $ver){
 
