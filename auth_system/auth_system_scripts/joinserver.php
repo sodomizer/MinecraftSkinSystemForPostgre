@@ -5,6 +5,7 @@ include ("connect.php");
 $sessionid = pg_escape_string($link, $_GET['sessionId']);
 $user = pg_escape_string($link, $_GET['user']);
 $serverid = pg_escape_string($link, $_GET['serverId']);
+$hash = pg_escape_string($link, $_GET[$hash_param_name!='' ? $hash_param_name : 'hash']);
 
 $query = "Select \"$db_columnUser\" From \"$db_table\" Where \"$db_columnSesId\"='$sessionid' And \"$db_columnUser\"='$user' And \"$db_columnServer\"='$serverid'".($hash_enable && $hash_enable_timeout ? " and \"md5time\"::timestamp >= (now()-interval '$hash_timeout seconds')::timestamp" : "");
 $result = pg_query($link, $query)
